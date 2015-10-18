@@ -1,0 +1,19 @@
+---
+- name: install system packages
+  apt:
+    name: "{{ item }}"
+    update_cache: yes
+    cache_valid_time: 3600
+  with_flattened:
+    - base_cli_packages[ansible_distribution_release]
+  tags: ['apt']
+
+- name: copy custom scripts
+  copy:
+    src: "{{ item.src }}"
+    dest: "/usr/local/{{ item.src }}"
+    mode: "{{ item.mode | default(omit) }}"
+  with_items:
+    - src: lib/
+    - src: bin/
+      mode: a+rx
