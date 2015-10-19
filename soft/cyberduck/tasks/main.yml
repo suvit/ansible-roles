@@ -1,0 +1,20 @@
+---
+- name: repository key
+  apt_key:
+    id: "2DA69515"  # FIXME "0xFE7097963FEFBE72"
+    keyserver: keyserver.ubuntu.com
+    state: "{{ cyberduck_state }}"
+  tags: ['apt']
+
+- name: package repository
+  apt_repository:
+    repo: "deb https://s3.amazonaws.com/repo.deb.cyberduck.io stable main"
+    update_cache: yes
+    state: "{{ cyberduck_state }}"
+  tags: ['apt']
+
+- name: system packages
+  apt:
+    name: duck
+    state: "{{ cyberduck_state }}"
+  tags: ['apt']

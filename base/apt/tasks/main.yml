@@ -1,0 +1,6 @@
+---
+- name: install system packages
+  apt:
+    name: apt-transport-https
+    state: present
+  tags: ['apt']
